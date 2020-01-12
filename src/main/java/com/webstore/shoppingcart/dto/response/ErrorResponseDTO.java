@@ -16,4 +16,8 @@ public class ErrorResponseDTO {
 	private String field;
 	private String message;
 
+	public ErrorResponseDTO(String message) {
+		this.message = message;
+	}
+
 }

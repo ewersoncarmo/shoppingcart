@@ -1,4 +1,4 @@
-package com.webstore.shoppingcart.domain;
+package com.webstore.shoppingcart.domain.entity;
 
 import org.springframework.data.annotation.Id;
 
@@ -7,11 +7,11 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class Item {
+public class User {
 
 	@Id
 	private String id;
 	private String name;
-	private Double amount;
-
+	private String email;
+	
 }

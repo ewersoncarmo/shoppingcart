@@ -1,4 +1,4 @@
-package com.webstore.shoppingcart.exception;
+package com.webstore.shoppingcart.exception.handler;
 
 import org.springframework.http.ResponseEntity;
 

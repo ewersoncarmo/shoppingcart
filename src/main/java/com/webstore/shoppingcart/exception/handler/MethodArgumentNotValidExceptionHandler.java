@@ -1,4 +1,4 @@
-package com.webstore.shoppingcart.exception;
+package com.webstore.shoppingcart.exception.handler;
 
 import java.util.ArrayList;
 import java.util.List;

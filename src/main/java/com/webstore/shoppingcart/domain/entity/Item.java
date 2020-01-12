@@ -1,6 +1,6 @@
-package com.webstore.shoppingcart.domain;
+package com.webstore.shoppingcart.domain.entity;
 
-import java.util.Set;
+import java.math.BigDecimal;
 
 import org.springframework.data.annotation.Id;
 
@@ -9,12 +9,11 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class User {
+public class Item {
 
 	@Id
 	private String id;
 	private String name;
-	private String eMail;
-	private Set<Item> items;
-	
+	private BigDecimal amount;
+
 }
