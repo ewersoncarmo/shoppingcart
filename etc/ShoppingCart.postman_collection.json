@@ -31,13 +31,14 @@
 							"raw": "{\n\t\"name\": \"Paul\",\n\t\"email\": \"paul@gmail.com\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/users",
+							"raw": "http://localhost:8080/shoppingcart/api/v1/users",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"shoppingcart",
 								"api",
 								"v1",
 								"users"
@@ -69,13 +70,14 @@
 							"raw": "{\n\t\"name\": \"John\",\n\t\"email\": \"john@gmail.com\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/users/5e1b54d60b1d8a206c11b2f7",
+							"raw": "http://localhost:8080/shoppingcart/api/v1/users/5e1b54d60b1d8a206c11b2f7",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"shoppingcart",
 								"api",
 								"v1",
 								"users",
@@ -140,17 +142,18 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/users/5e1b54d60b1d8a206c11b2f7",
+							"raw": "http://localhost:8080/shoppingcart/api/v1/users/5e1b5c910b1d8a067c2440dd",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"shoppingcart",
 								"api",
 								"v1",
 								"users",
-								"5e1b54d60b1d8a206c11b2f7"
+								"5e1b5c910b1d8a067c2440dd"
 							]
 						}
 					},
@@ -173,13 +176,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/users/5e1b54d60b1d8a206c11b2f7",
+							"raw": "http://localhost:8080/shoppingcart/api/v1/users/5e1b54d60b1d8a206c11b2f7",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"shoppingcart",
 								"api",
 								"v1",
 								"users",
@@ -240,13 +244,14 @@
 							"raw": "{\n\t\"name\": \"Printer\",\n\t\"amount\": 2000.0\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/items",
+							"raw": "http://localhost:8080/shoppingcart/api/v1/items",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"shoppingcart",
 								"api",
 								"v1",
 								"items"
@@ -278,13 +283,14 @@
 							"raw": "{\n\t\"name\": \"Smartphone\",\n\t\"amount\": 3000.0\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/items/5e1b55ae0b1d8a206c11b2f8",
+							"raw": "http://localhost:8080/shoppingcart/api/v1/items/5e1b55ae0b1d8a206c11b2f8",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"shoppingcart",
 								"api",
 								"v1",
 								"items",
@@ -320,13 +326,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/items",
+							"raw": "http://localhost:8080/shoppingcart/api/v1/items",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"shoppingcart",
 								"api",
 								"v1",
 								"items"
@@ -361,13 +368,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/items/5e1b55ae0b1d8a206c11b2f8",
+							"raw": "http://localhost:8080/shoppingcart/api/v1/items/5e1b55ae0b1d8a206c11b2f8",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"shoppingcart",
 								"api",
 								"v1",
 								"items",
@@ -400,13 +408,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/items/5e1b55ae0b1d8a206c11b2f8",
+							"raw": "http://localhost:8080/shoppingcart/api/v1/items/5e1b55ae0b1d8a206c11b2f8",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"shoppingcart",
 								"api",
 								"v1",
 								"items",
@@ -450,13 +459,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/shoppingCarts/findAll",
+							"raw": "http://localhost:8080/shoppingcart/api/v1/shoppingCarts/findAll",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"shoppingcart",
 								"api",
 								"v1",
 								"shoppingCarts",
@@ -472,13 +482,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/shoppingCarts/findPending",
+							"raw": "http://localhost:8080/shoppingcart/api/v1/shoppingCarts/findPending",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"shoppingcart",
 								"api",
 								"v1",
 								"shoppingCarts",
@@ -510,13 +521,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/shoppingCarts/user/5e1b54d60b1d8a206c11b2f7/addItems",
+							"raw": "http://localhost:8080/shoppingcart/api/v1/shoppingCarts/user/5e1b54d60b1d8a206c11b2f7/addItems",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"shoppingcart",
 								"api",
 								"v1",
 								"shoppingCarts",
@@ -553,13 +565,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/shoppingCarts/user/5e1b54d60b1d8a206c11b2f7/findPending",
+							"raw": "http://localhost:8080/shoppingcart/api/v1/shoppingCarts/user/5e1b54d60b1d8a206c11b2f7/findPending",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"shoppingcart",
 								"api",
 								"v1",
 								"shoppingCarts",
@@ -593,13 +606,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/shoppingCarts/user/5e1b54d60b1d8a206c11b2f7/finish",
+							"raw": "http://localhost:8080/shoppingcart/api/v1/shoppingCarts/user/5e1b54d60b1d8a206c11b2f7/finish",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"shoppingcart",
 								"api",
 								"v1",
 								"shoppingCarts",
