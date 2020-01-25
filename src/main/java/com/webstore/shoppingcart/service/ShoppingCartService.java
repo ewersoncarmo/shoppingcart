@@ -121,9 +121,8 @@ public class ShoppingCartService {
 		return shoppingCartRepository.findByUser_Id(userId);
 	}
 
-	// TODO verificar se existe o item dentro de algum carrinho
 	public Optional<ShoppingCart> findShoppingCartItemByItem(String itemId) {
-		return null;
+		return shoppingCartRepository.findByItem_Id(itemId);
 	}
 	
 	private ShoppingCart findPendingShoppingCartByUser(String userId) {
