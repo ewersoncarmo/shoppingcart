@@ -19,9 +19,6 @@
         </encoder>
     </appender>
 
-    <logger name="org.hibernate.type" level="ALL" /> 
-    <logger name="org.hibernate" level="DEBUG" /> 
-
     <logger name="com.webstore.shoppingcart" level="DEBUG" />
 
     <root level="INFO">

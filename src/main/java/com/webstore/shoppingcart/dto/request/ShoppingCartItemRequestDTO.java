@@ -16,7 +16,6 @@ public class ShoppingCartItemRequestDTO {
 	private String itemId;
 	
 	@NotNull
-	@NotBlank
 	@Min(value = 1)
 	private Integer quantity;
 }

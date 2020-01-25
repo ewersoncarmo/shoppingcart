@@ -17,12 +17,10 @@ import com.webstore.shoppingcart.domain.entity.ShoppingCartItem;
 import com.webstore.shoppingcart.domain.entity.User;
 import com.webstore.shoppingcart.domain.enumerator.PurchaseStatus;
 import com.webstore.shoppingcart.dto.request.ShoppingCartItemRequestDTO;
-import com.webstore.shoppingcart.dto.request.ShoppingCartRequestDTO;
 import com.webstore.shoppingcart.dto.response.ShoppingCartItemResponseDTO;
 import com.webstore.shoppingcart.dto.response.ShoppingCartResponseDTO;
 import com.webstore.shoppingcart.exception.ServiceException;
 import com.webstore.shoppingcart.modelmapper.ItemMapper;
-import com.webstore.shoppingcart.persistence.ShoppingCartItemRepository;
 import com.webstore.shoppingcart.persistence.ShoppingCartRepository;
 
 @Service
@@ -40,50 +38,41 @@ public class ShoppingCartService {
 	private ShoppingCartRepository shoppingCartRepository;
 	
 	@Autowired
-	private ShoppingCartItemRepository shoppingCartItemRepository;
-	
-	@Autowired
 	private ItemMapper itemMapper;
 	
-	public ShoppingCartResponseDTO addItems(ShoppingCartRequestDTO request, String userId) {
+	public ShoppingCartResponseDTO addItems(ShoppingCartItemRequestDTO request, String userId) {
 		User user = userService.findById(userId);
 		
 		ShoppingCart shoppingCart = shoppingCartRepository.findByUser_IdAndPurchaseStatus(user.getId(), PurchaseStatus.PENDING)
 			.orElse(new ShoppingCart(user));
 		
-		for (ShoppingCartItemRequestDTO itemDTO : request.getItems()) {
-			try {
-				Item item = itemService.findById(itemDTO.getItemId());
+		Item item = itemService.findById(request.getItemId());
 
-				ShoppingCartItem shoppingCartItem = shoppingCart.getItems()
-						.stream()
-							.filter(a -> a.getItem().getId().equals(item.getId()))
-							.findAny()
-							.orElse(null);
-				
-				if (shoppingCartItem != null) {
-					LOG.debug("Item already exists in the Shopping Cart. It will be updated.");
-					
-					shoppingCartItem.setQuantity(shoppingCartItem.getQuantity() + itemDTO.getQuantity());
-					shoppingCartItem.setTotalAmount(shoppingCartItem.getTotalAmount()
-							.add(item.getAmount()
-									.multiply(BigDecimal.valueOf(itemDTO.getQuantity()))));
-				} else {
-					LOG.debug("Item does not exist in the Shopping Cart. It will be added.");
+		ShoppingCartItem shoppingCartItem = shoppingCart.getItems()
+				.stream()
+					.filter(a -> a.getItem().getId().equals(item.getId()))
+					.findAny()
+					.orElse(null);
+		
+		if (shoppingCartItem != null) {
+			LOG.debug("Item already exists in the Shopping Cart. It will be updated.");
+			
+			shoppingCartItem.setQuantity(shoppingCartItem.getQuantity() + request.getQuantity());
+			shoppingCartItem.setTotalAmount(shoppingCartItem.getTotalAmount()
+					.add(item.getAmount()
+							.multiply(BigDecimal.valueOf(request.getQuantity()))));
+		} else {
+			LOG.debug("Item does not exist in the Shopping Cart. It will be added.");
 
-					shoppingCartItem = ShoppingCartItem
-							.builder()
-								.item(item)
-								.quantity(itemDTO.getQuantity())
-								.totalAmount(item.getAmount()
-										.multiply(BigDecimal.valueOf(itemDTO.getQuantity())))
-							.build();
-					
-					shoppingCart.getItems().add(shoppingCartItem);
-				}
-			} catch (ServiceException e) {
-				LOG.warn(String.format("Item with given ID %s was not found in the catalog. It will not be added to the Shopping Cart.", itemDTO.getItemId()));
-			}
+			shoppingCartItem = ShoppingCartItem
+					.builder()
+						.item(item)
+						.quantity(request.getQuantity())
+						.totalAmount(item.getAmount()
+								.multiply(BigDecimal.valueOf(request.getQuantity())))
+					.build();
+			
+			shoppingCart.getItems().add(shoppingCartItem);
 		}
 		
 		shoppingCart.setTotalAmount(BigDecimal.valueOf(shoppingCart.getItems()
@@ -91,8 +80,7 @@ public class ShoppingCartService {
 				.mapToDouble(i -> i.getTotalAmount().doubleValue())
 				.sum()));
 		
-		shoppingCart = shoppingCartRepository.save(shoppingCart);
-		shoppingCartItemRepository.saveAll(shoppingCart.getItems());
+		shoppingCartRepository.save(shoppingCart);
 
 		return handleResponse(shoppingCart);
 	}
@@ -107,7 +95,7 @@ public class ShoppingCartService {
 		ShoppingCart shoppingCart = findPendingShoppingCartByUser(userId);
 		
 		shoppingCart.setPurchaseStatus(PurchaseStatus.FINISHED);
-		shoppingCart = shoppingCartRepository.save(shoppingCart);
+		shoppingCartRepository.save(shoppingCart);
 		
 		return handleResponse(shoppingCart);
 	}
@@ -129,42 +117,13 @@ public class ShoppingCartService {
 				.collect(Collectors.toList());
 	}
 	
-	private ShoppingCartResponseDTO handleResponse(ShoppingCart shoppingCart) {
-		ShoppingCartResponseDTO response = new ShoppingCartResponseDTO();
-		
-		response.setId(shoppingCart.getId());
-		response.setUser(shoppingCart.getUser());
-		response.setPurchaseStatus(shoppingCart.getPurchaseStatus().getDescription());
-
-		List<ShoppingCartItemResponseDTO> shoppingCartItemsResponseDTO = new ArrayList<>();
-		shoppingCart.getItems().forEach(i -> {
-			ShoppingCartItemResponseDTO shoppingCartItemResponseDTO = ShoppingCartItemResponseDTO
-					.builder()
-						.id(i.getId())
-						.item(itemMapper.toResponseObject(i.getItem()))
-						.quantity(i.getQuantity())
-						.totalAmount(i.getTotalAmount())
-					.build();
-			
-			shoppingCartItemsResponseDTO.add(shoppingCartItemResponseDTO);
-		});
-
-		response.setItems(shoppingCartItemsResponseDTO
-				.stream()
-					.sorted((i1, i2) -> i1.getItem().getName().compareTo(i2.getItem().getName()))
-					.sorted((i1, i2) -> i1.getTotalAmount().compareTo(i2.getTotalAmount()))
-				.collect(Collectors.toList()));
-		response.setTotalAmount(shoppingCart.getTotalAmount());
-		
-		return response;
-	}
-
 	public Optional<ShoppingCart> findShoppingCartByUser(String userId) {
 		return shoppingCartRepository.findByUser_Id(userId);
 	}
 
-	public Optional<ShoppingCartItem> findShoppingCartItemByItem(String itemId) {
-		return shoppingCartItemRepository.findByItem_Id(itemId);
+	// TODO verificar se existe o item dentro de algum carrinho
+	public Optional<ShoppingCart> findShoppingCartItemByItem(String itemId) {
+		return null;
 	}
 	
 	private ShoppingCart findPendingShoppingCartByUser(String userId) {
@@ -176,5 +135,33 @@ public class ShoppingCartService {
 		
 		return shoppingCart;
 	}
-
+	
+	private ShoppingCartResponseDTO handleResponse(ShoppingCart shoppingCart) {
+		ShoppingCartResponseDTO response = new ShoppingCartResponseDTO();
+		
+		response.setId(shoppingCart.getId());
+		response.setUser(shoppingCart.getUser());
+		response.setPurchaseStatus(shoppingCart.getPurchaseStatus().getDescription());
+	
+		List<ShoppingCartItemResponseDTO> shoppingCartItemsResponseDTO = new ArrayList<>();
+		shoppingCart.getItems().forEach(i -> {
+			ShoppingCartItemResponseDTO shoppingCartItemResponseDTO = ShoppingCartItemResponseDTO
+					.builder()
+						.item(itemMapper.toResponseObject(i.getItem()))
+						.quantity(i.getQuantity())
+						.totalAmount(i.getTotalAmount())
+					.build();
+			
+			shoppingCartItemsResponseDTO.add(shoppingCartItemResponseDTO);
+		});
+	
+		response.setItems(shoppingCartItemsResponseDTO
+				.stream()
+					.sorted((i1, i2) -> i1.getItem().getName().compareTo(i2.getItem().getName()))
+					.sorted((i1, i2) -> i1.getTotalAmount().compareTo(i2.getTotalAmount()))
+				.collect(Collectors.toList()));
+		response.setTotalAmount(shoppingCart.getTotalAmount());
+		
+		return response;
+	}
 }

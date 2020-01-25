@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.webstore.shoppingcart.controller.base.ControllerBase;
-import com.webstore.shoppingcart.dto.request.ShoppingCartRequestDTO;
+import com.webstore.shoppingcart.dto.request.ShoppingCartItemRequestDTO;
 import com.webstore.shoppingcart.dto.response.ResponseDTO;
 import com.webstore.shoppingcart.dto.response.ShoppingCartResponseDTO;
 import com.webstore.shoppingcart.service.ShoppingCartService;
@@ -32,7 +32,7 @@ public class ShoppingCartController extends ControllerBase {
 	private ShoppingCartService service;
 	
 	@PostMapping(path = "/user/{id}/addItems")
-	public ResponseEntity<ResponseDTO<ShoppingCartResponseDTO>> addItems(@Valid @RequestBody ShoppingCartRequestDTO request, @PathVariable(value = "id") String id) {
+	public ResponseEntity<ResponseDTO<ShoppingCartResponseDTO>> addItems(@Valid @RequestBody ShoppingCartItemRequestDTO request, @PathVariable(value = "id") String id) {
 		LOG.debug("Initializing POST in /api/v1/shoppingCarts/user/{id}/addItems with request {} and id {}", request, id);
 		
 		ShoppingCartResponseDTO response = service.addItems(request, id);

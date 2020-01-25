@@ -67,7 +67,7 @@ public class ItemService {
 	public void delete(String id) {
 		Item item = findById(id);
 		
-		// M-7=Item with ID ({0}) has Shopping Cats and can not be deleted.
+		// M-7=Item with ID ({0}) has Shopping Carts and can not be deleted.
 		shoppingCartService.findShoppingCartItemByItem(item.getId())
 			.ifPresent(s -> {
 		 		throw new ServiceException("M-7", item.getId());

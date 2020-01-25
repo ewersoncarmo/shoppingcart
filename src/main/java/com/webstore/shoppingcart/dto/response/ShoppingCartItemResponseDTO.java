@@ -15,7 +15,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ShoppingCartItemResponseDTO {
 
-	private String id;
 	private ItemResponseDTO item;
 	private Integer quantity;
 	private BigDecimal totalAmount;

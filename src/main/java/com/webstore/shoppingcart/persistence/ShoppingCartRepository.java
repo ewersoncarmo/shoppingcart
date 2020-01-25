@@ -13,4 +13,5 @@ public interface ShoppingCartRepository extends MongoRepository<ShoppingCart, St
 
 	Optional<ShoppingCart> findByUser_Id(String userId);
 
+	// TODO criar consulta do documento para verificar se existe o item dentro de algum carrinho
 }

@@ -67,7 +67,7 @@ public class UserService {
 	public void delete(String id) {
 		User user = findById(id);
 		
-		// M-6=User with ID ({0}) has Shopping Cats and can not be deleted.
+		// M-6=User with ID ({0}) has Shopping Carts and can not be deleted.
 		shoppingCartService.findShoppingCartByUser(user.getId())
 			.ifPresent(s -> {
 		 		throw new ServiceException("M-6", user.getId());
